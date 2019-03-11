@@ -287,7 +287,12 @@ namespace MessagePackCompiler
                 CollectCore(item);
             }
 
-            return (collectedObjectInfo.ToArray(), collectedEnumInfo.ToArray(), collectedGenericInfo.Distinct().ToArray(), collectedUnionInfo.ToArray());
+            return (
+                collectedObjectInfo.OrderBy(x => x.FullName).ToArray(),
+                collectedEnumInfo.OrderBy(x => x.FullName).ToArray(),
+                collectedGenericInfo.Distinct().OrderBy(x => x.FullName).ToArray(),
+                collectedUnionInfo.OrderBy(x => x.FullName).ToArray()
+            );
         }
 
         // Gate of recursive collect
